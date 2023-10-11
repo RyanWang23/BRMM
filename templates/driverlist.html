@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- driver_list is the variable passed in containing the list of drivers -->
+<!-- Add code to display a list of drivers -->
+
+<h2>Driver List</h2>
+
+<p>For the Milestone submission, this page just needs to display this text successfully in your browser.</p>
+
+<table>
+<!--     <tr>
+        <th>Course</th>
+        <th>Name</th>
+        <th>Map diagram</th>
+    </tr> -->
+    {% for driver in driver_list %}
+        <tr>
+            {% for field in driver %}
+                <td>{{field}}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
