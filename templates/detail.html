@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- driver_list is the variable passed in containing the list of drivers -->
+<!-- Add code to display a list of drivers -->
+
+<h2>Detail of the run</h2>
+<hr>
+<table  class="table table-striped">
+    <tr>
+        <th>Driver</th>
+        <th>Course</th>
+        <th>Runnum</th>
+        <th>Second</th>
+        <th>Cones</th>
+        <th>WD</th>
+        <th>Run Total</th>
+    </tr>
+    {% for run in run_list %}
+          <tr>
+            {% for field in run%}
+            <td>{{field}}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

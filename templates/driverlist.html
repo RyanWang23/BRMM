@@ -4,20 +4,22 @@
 <!-- Add code to display a list of drivers -->
 
 <h2>Driver List</h2>
-
-<p>For the Milestone submission, this page just needs to display this text successfully in your browser.</p>
-
-<table>
-<!--     <tr>
-        <th>Course</th>
-        <th>Name</th>
-        <th>Map diagram</th>
-    </tr> -->
+<hr>
+<table  class="table table-striped">
+    <tr>
+        <th>Driver ID</th>
+        <th>Driver Name</th>
+        <th>Date of birth</th>
+        <th>Age</th>
+        <th>Care Giver</th>
+    </tr>
     {% for driver in driver_list %}
-        <tr>
-            {% for field in driver %}
-                <td>{{field}}</td>
-            {% endfor %}
+          <tr {% if driver.4 != '-' %}class="table-warning"{% endif %}>
+            <td>{{driver.0}}</td>
+            <td> <a href="/driver/{{driver.0}}">{{driver.1}}</a> </td>
+            <td>{{driver.2}}</td>
+            <td>{{driver.3}}</td>
+            <td>{{driver.4}}</td>
         </tr>
     {% endfor %}
 </table>

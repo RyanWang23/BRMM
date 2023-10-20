@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>{% block title %}{% endblock %}</title>
-        <!-- Bootstrap CSS link -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    </head>
 
-    <body>
-      <nav>
-            <h1>Bankside Rakaia Motorkhana Mavens - Competition event</h1>
-            <ul>
-                <li><a href="{{ url_for('listdrivers') }}">List Drivers</a></li>
-                <li><a href="{{ url_for('listcourses') }}">List Courses</a></li>
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <ul class="nav nav-pills ">
+                <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+                <li class="nav-item"><a href="{{ url_for('listdrivers') }}" class="nav-link">Drivers</a></li>
+                <li class="nav-item"><a href="{{ url_for('listcourses') }}" class="nav-link">Courses</a></li>
+                <li class="nav-item"><a href="{{ url_for('overall') }}" class="nav-link">Overall</a></li>
+                <li class="nav-item"><a href="{{ url_for('showgraph') }}" class="nav-link">Top 5 Drivers</a></li>
             </ul>
-          </nav>
-          <section class="content">
+        </header>
+        <section class="content">
             <header>
-              {% block header %}{% endblock %}
+                {% block header %}{% endblock %}
             </header>
             {% for message in get_flashed_messages() %}
-              <div class="flash">{{ message }}</div>
+            <div class="flash">{{ message }}</div>
             {% endfor %}
             {% block content %}{% endblock %}
-          </section>
-
-        <!-- Bootstrap's JavaScript bundle including Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    </body>
+        </section>
+    </div>
+    <!-- Bootstrap's JavaScript bundle including Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
 
 </html>

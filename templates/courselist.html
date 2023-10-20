@@ -1,23 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-
 <h2>Course List</h2>
-<h3>current competition courses</h3>
-
-<!-- code to display list of courses-->
-<table>
-    <tr>
-        <th>Course</th>
-        <th>Name</th>
-        <th>Map diagram</th>
-    </tr>
+<h3>Current competition courses</h3>
+<hr>
+<div style="text-align: center">
     {% for course in course_list %}
-        <tr>
-            {% for field in course %}
-                <td>{{field}}</td>
-            {% endfor %}
-        </tr>
+    <div>
+        <h2>Course {{course[0]}}: {{course[1]}}</h2>
+        <img src="/static/{{course[2]}}">
+    </div>
     {% endfor %}
-</table>
-
+</div>
+<!-- code to display list of courses-->
 {% endblock %}

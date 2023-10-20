@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Overall Result</h2>
+<hr>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Driver ID</th>
+            <th>Driver Name</th>
+            <th>Overall Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in data_lst %}
+        <tr>
+            <td>{{data.driver_id}}</td>
+            <td>{{data.driver_name}}</td>
+            <td>{{data.course_time}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- code to display list of courses-->
+{% endblock %}
