@@ -1,4 +1,6 @@
 # BRMM
+
+## Web application structure
 This Flask application is designed to manage and display data related to drivers, courses, and run records. It interacts with a MySQL database to retrieve and present information to users via web pages. The application offers several key features:
 
 - List of Drivers:
@@ -40,7 +42,42 @@ Technologies and Libraries Used:
 
 This Flask application provides a user-friendly interface for managing and displaying data related to drivers and courses. It leverages the Flask framework and interacts with a MySQL database to offer features such as listing drivers, calculating overall results, and displaying driver details. With the potential addition of graph visualization, the application has the capacity to become a comprehensive tool for tracking and visualizing driver performance.
 
+## Database questions
 
+### 1
+```{sql}
+CREATE TABLE IF NOT EXISTS car
+(
+   car_num INT PRIMARY KEY NOT NULL,
+   model VARCHAR(20) NOT NULL,
+   drive_class VARCHAR(3) NOT NULL
+);
+```
 
+### 2
+```{sql}
+FOREIGN KEY (car) REFERENCES car(car_num) ON UPDATE CASCADE ON DELETE CASCADE
+```
 
+### 3
+```{sql}
+INSERT INTO car VALUES
+(11,'Mini','FWD'),
+(17,'GR Yaris','4WD'),
+(18,'MX-5','RWD'),
+(20,'Camaro','RWD'),
+(22,'MX-5','RWD'),
+(31,'Charade','FWD'),
+(36,'Swift','FWD'),
+(44,'BRZ','RWD');
+```
 
+### 4
+```{sql}
+drive_class VARCHAR(3) NOT NULL DEFAULT 'RWD'
+```
+
+### 5
+Data Privacy: Some data and functionality are meant to be accessed and modified only by authorized users. For example, driver profiles and their personal information should be accessible only to the drivers themselves and the club admin, not to other drivers.
+
+Data Integrity: Allowing unrestricted access could lead to unauthorized changes to the database. For example, if all users could modify run results, it could result in incorrect or manipulated data.
