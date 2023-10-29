@@ -81,3 +81,7 @@ drive_class VARCHAR(3) NOT NULL DEFAULT 'RWD'
 Data Privacy: Some data and functionality are meant to be accessed and modified only by authorized users. For example, driver profiles and their personal information should be accessible only to the drivers themselves and the club admin, not to other drivers.
 
 Data Integrity: Allowing unrestricted access could lead to unauthorized changes to the database. For example, if all users could modify run results, it could result in incorrect or manipulated data.
+
+### Password to the admin.
+
+The default username is admin, the password is also admin.
