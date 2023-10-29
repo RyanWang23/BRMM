@@ -11,13 +11,8 @@
 <body>
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <ul class="nav nav-pills ">
-                <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-                <li class="nav-item"><a href="{{ url_for('listdrivers') }}" class="nav-link">Drivers</a></li>
-                <li class="nav-item"><a href="{{ url_for('listcourses') }}" class="nav-link">Courses</a></li>
-                <li class="nav-item"><a href="{{ url_for('overall') }}" class="nav-link">Overall</a></li>
-                <li class="nav-item"><a href="{{ url_for('showgraph') }}" class="nav-link">Top 5 Drivers</a></li>
-            </ul>
+            {% block navbar %}
+            {% endblock %}
         </header>
         <section class="content">
             <header>

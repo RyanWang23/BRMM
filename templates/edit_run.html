@@ -1,12 +1,12 @@
 {% extends "base.html" %}
+
+
 {% block navbar %}
 <ul class="nav nav-pills ">
-    <li class="nav-item"><a href="{{ url_for('listdrivers') }}" class="nav-link active">Drivers</a></li>
-    <li class="nav-item"><a href="{{ url_for('listcourses') }}" class="nav-link ">Courses</a></li>
-    <li class="nav-item"><a href="{{ url_for('detail') }}" class="nav-link">Details</a></li>
-    <li class="nav-item"><a href="{{ url_for('overall') }}" class="nav-link">Overall</a></li>
-    <li class="nav-item"><a href="{{ url_for('showgraph') }}" class="nav-link">Top 5 Drivers</a></li>
-    <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Admin</a></li> 
+    <li class="nav-item"><a href="{{ url_for('junior_drivers') }}" class="nav-link">Junior drive list</a></li>
+    <li class="nav-item"><a href="{{ url_for('driver_search') }}" class="nav-link">Driver Search</a></li>
+    <li class="nav-item"><a href="{{ url_for('edit_run') }}" class="nav-link active">Edit run</a></li>
+    <li class="nav-item"><a href="{{ url_for('add_driver') }}" class="nav-link">Add Driver</a></li>
 </ul>
 {% endblock %}
 
@@ -14,7 +14,7 @@
 <!-- driver_list is the variable passed in containing the list of drivers -->
 <!-- Add code to display a list of drivers -->
 
-<h2>Driver List</h2>
+<h2>Junior Driver List</h2>
 <hr>
 <table  class="table table-striped">
     <tr>

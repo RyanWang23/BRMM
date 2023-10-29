@@ -1,4 +1,16 @@
 {% extends "base.html" %}
+{% block navbar %}
+<ul class="nav nav-pills ">
+    <li class="nav-item"><a href="{{ url_for('listdrivers') }}" class="nav-link">Drivers</a></li>
+    <li class="nav-item"><a href="{{ url_for('listcourses') }}" class="nav-link active">Courses</a></li>
+    <li class="nav-item"><a href="{{ url_for('detail') }}" class="nav-link">Details</a></li>
+    <li class="nav-item"><a href="{{ url_for('overall') }}" class="nav-link">Overall</a></li>
+    <li class="nav-item"><a href="{{ url_for('showgraph') }}" class="nav-link">Top 5 Drivers</a></li>
+    <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Admin</a></li> 
+</ul>
+{% endblock %}
+
+
 {% block content %}
 <h2>Course List</h2>
 <h3>Current competition courses</h3>

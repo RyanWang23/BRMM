@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block navbar %}
+<ul class="nav nav-pills ">
+    <li class="nav-item"><a href="{{ url_for('listdrivers') }}" class="nav-link">Drivers</a></li>
+    <li class="nav-item"><a href="{{ url_for('listcourses') }}" class="nav-link">Courses</a></li>
+    <li class="nav-item"><a href="{{ url_for('detail') }}" class="nav-link active">Details</a></li>
+    <li class="nav-item"><a href="{{ url_for('overall') }}" class="nav-link">Overall</a></li>
+    <li class="nav-item"><a href="{{ url_for('showgraph') }}" class="nav-link">Top 5 Drivers</a></li>
+    <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Admin</a></li> 
+</ul>
+{% endblock %}
+
+{% block content %}
+<!-- driver_list is the variable passed in containing the list of drivers -->
+<!-- Add code to display a list of drivers -->
+<h2>Select a driver</h2>
+<hr>
+<form method="POST" action="{{ url_for('detail') }}">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col input-group">
+           <span class="input-group-text">Driver</span>
+            <select name="driver_id" id="driver_id" class="form-control">
+                {% for driver in drivers %}
+                <option value="{{ driver.driver_id }}">{{ driver.first_name }} {{ driver.surnamne }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col">
+            <input type="submit" value="Query" class="form-control">
+        </div>
+        <div class="col"></div>
+    </div>
+</form>
+{% endblock %}

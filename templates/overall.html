@@ -1,4 +1,17 @@
 {% extends "base.html" %}
+
+{% block navbar %}
+<ul class="nav nav-pills ">
+    <li class="nav-item"><a href="{{ url_for('listdrivers') }}" class="nav-link">Drivers</a></li>
+    <li class="nav-item"><a href="{{ url_for('listcourses') }}" class="nav-link">Courses</a></li>
+    <li class="nav-item"><a href="{{ url_for('detail') }}" class="nav-link">Details</a></li>
+    <li class="nav-item"><a href="{{ url_for('overall') }}" class="nav-link  active">Overall</a></li>
+    <li class="nav-item"><a href="{{ url_for('showgraph') }}" class="nav-link">Top 5 Drivers</a></li>
+    <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Admin</a></li> 
+</ul>
+{% endblock %}
+
+
 {% block content %}
 <h2>Overall Result</h2>
 <hr>
@@ -7,6 +20,7 @@
         <tr>
             <th>Driver ID</th>
             <th>Driver Name</th>
+            <th>Car Model</th>
             <th>Overall Score</th>
         </tr>
     </thead>
@@ -15,6 +29,7 @@
         <tr>
             <td>{{data.driver_id}}</td>
             <td>{{data.driver_name}}</td>
+            <td>{{data.model}}</td>
             <td>{{data.course_time}}</td>
         </tr>
         {% endfor %}

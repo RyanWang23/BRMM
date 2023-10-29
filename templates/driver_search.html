@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block navbar %}
+<ul class="nav nav-pills ">
+    <li class="nav-item"><a href="{{ url_for('junior_drivers') }}" class="nav-link">Junior drive list</a></li>
+    <li class="nav-item"><a href="{{ url_for('driver_search') }}" class="nav-link active">Driver Search</a></li>
+    <li class="nav-item"><a href="{{ url_for('edit_run') }}" class="nav-link">Edit run</a></li>
+    <li class="nav-item"><a href="{{ url_for('add_driver') }}" class="nav-link">Add Driver</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+<!-- driver_list is the variable passed in containing the list of drivers -->
+<!-- Add code to display a list of drivers -->
+<h2>Driver Search</h2>
+<hr>
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <form action="/driver-results" method="GET">
+            <div class="mb-3 mt-3">
+                <label for="email" class="form-label">Search by first name or surname::</label>
+                <input type="text" class="form-control" id="search" name="search">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class="col"></div>
+</div>
+{% endblock %}

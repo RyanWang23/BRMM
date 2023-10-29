@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block navbar %}
+<ul class="nav nav-pills ">
+    <li class="nav-item"><a href="{{ url_for('junior_drivers') }}" class="nav-link active">Junior drive list</a></li>
+    <li class="nav-item"><a href="{{ url_for('driver_search') }}" class="nav-link">Driver Search</a></li>
+    <li class="nav-item"><a href="{{ url_for('edit_run') }}" class="nav-link">Edit run</a></li>
+    <li class="nav-item"><a href="{{ url_for('add_driver') }}" class="nav-link">Add Driver</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+<!-- driver_list is the variable passed in containing the list of drivers -->
+<!-- Add code to display a list of drivers -->
+<h2>Junior Driver List</h2>
+<hr>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Driver ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Caregiver</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in driver_list %}
+        <tr>
+            <td>{{data.driver_id}}</td>
+            <td>{{data.driver_name}}</td>
+            <td>{{data.age}}</td>
+            <td>{{data.care_name if data.care_name else ''}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

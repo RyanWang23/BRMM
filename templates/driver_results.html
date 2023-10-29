@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block navbar %}
+<ul class="nav nav-pills ">
+    <li class="nav-item"><a href="{{ url_for('junior_drivers') }}" class="nav-link">Junior drive list</a></li>
+    <li class="nav-item"><a href="{{ url_for('driver_search') }}" class="nav-link active">Driver Search</a></li>
+    <li class="nav-item"><a href="{{ url_for('edit_run') }}" class="nav-link">Edit run</a></li>
+    <li class="nav-item"><a href="{{ url_for('add_driver') }}" class="nav-link">Add Driver</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h2>Driver Search Results</h2>
+<hr>
+<p>Search query: {{ search_query }}</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Driver ID</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Date of Birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for driver in drivers %}
+      <tr>
+        <td>{{driver.driver_id}}</td>
+        <td>{{driver.first_name}} {{driver.surname}}</td>
+        <td>{{driver.age}}</td>
+        <td>{{driver.date_of_birth}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

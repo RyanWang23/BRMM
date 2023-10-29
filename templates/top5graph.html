@@ -1,34 +1,39 @@
 
-<!DOCTYPE html>
-<html>
-    <!-- access Plotly content delivery network (CDN) charting library -->
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% extends "base.html" %}
 
-<body>
-    <h1>heading</h1>
-    <div id="myHBarPlot" style="width:100%; max-width:320px;"></div>
+{% block navbar %}
+<ul class="nav nav-pills ">
+    <li class="nav-item"><a href="{{ url_for('listdrivers') }}" class="nav-link">Drivers</a></li>
+    <li class="nav-item"><a href="{{ url_for('listcourses') }}" class="nav-link">Courses</a></li>
+    <li class="nav-item"><a href="{{ url_for('detail') }}" class="nav-link">Details</a></li>
+    <li class="nav-item"><a href="{{ url_for('overall') }}" class="nav-link">Overall</a></li>
+    <li class="nav-item"><a href="{{ url_for('showgraph') }}" class="nav-link active">Top 5 Drivers</a></li>
+    <li class="nav-item"><a href="{{ url_for('login') }}" class="nav-link">Admin</a></li> 
+</ul>
+{% endblock %}
 
-    <script>
+
+{% block content %}
+<h2>Top 5 Drivers</h2>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<div id="myHBarPlot" style="width:100%; max-width:90%;"></div>
+<script>
         // Note SPACE after each fruit name so gap before horizontal bars
-        const priceList = [7.25,8.50,3.45];
-        const fruitList = ['apple ','mango ','banana '];
-        // REPLACE constants above with passed in variables.
-        // Use the '|safe' Jinja filter to mark them as safe (prevents your data being html-escaped). eg,
-        // var myList = {{ list_from_py | safe }}
-
+        const nameList = {{ name_list | safe }};
+        const valueList = {{ value_list | safe }};
         // Define graph data
-        const data = [{ x: priceList,  y: fruitList,  type:"bar", orientation:"h", marker: {color:"pink"} }];
+        const data = [{ x: valueList,  y: nameList,  type:"bar", orientation:"h", marker: {color:"cornflower blue"} }];
 
         // Define graph layout. Excluded a y-axis title as fruit names are self-explanatory.
         const layout = {  
-            xaxis: {range: [0, 15], title: "cost"}, 
-            title: "something"
+            xaxis: {range: [0, 300], title: "Overall Score"}, 
+            yaxis: {title:"Driver"},
+            title: "Top 5 drivers overall"
         };
 
         // Display using Plotly
         Plotly.newPlot("myHBarPlot", data, layout);
 
     </script>
+{% endblock %}
 
-</body>
-</html>
