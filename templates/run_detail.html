@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block navbar %}
+<ul class="nav nav-pills ">
+    <li class="nav-item"><a href="{{ url_for('junior_drivers') }}" class="nav-link">Junior drive list</a></li>
+    <li class="nav-item"><a href="{{ url_for('driver_search') }}" class="nav-link">Driver Search</a></li>
+    <li class="nav-item"><a href="{{ url_for('edit_run') }}" class="nav-link active">Edit run</a></li>
+    <li class="nav-item"><a href="{{ url_for('add_driver') }}" class="nav-link">Add Driver</a></li>
+         <li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
+</ul>
+{% endblock %}
+{% block content %}
+<!-- driver_list is the variable passed in containing the list of drivers -->
+<!-- Add code to display a list of drivers -->
+<h2>
+    Edit Runs
+</h2>
+<hr>
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <div class="container mt-3">
+                {% if message %}
+                <p class="text-success"><strong>Success:</strong> {{ message }}
+                {% endif %}
+                <form method="POST" action="{{ url_for('edit_run_detail') }}">
+                    <div class="mb-3 mt-3">
+                        <label for="course_id" class="form-label">Course:</label>
+                        <input type="text" class="form-control" disabled value={{runs.0.crs_id}}>
+                        <input type="hidden" name="course_id" class="form-control"  value={{runs.0.crs_id}}>
+                        
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="driver_id" class="form-label">Driver:</label>
+                        <input type="text"  class="form-control" disabled value={{runs.0.dr_id}}>
+                        <input type="hidden" name="driver_id" class="form-control"  value={{runs.0.dr_id}}>
+                        
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="run_num" class="form-label">Run Num:</label>
+                        <input type="text" class="form-control" disabled value={{runs.0.run_num}}>
+                         <input type="hidden" name="run_num" class="form-control"  value={{runs.0.run_num}}>
+                        
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="seconds" class="form-label">Seconds:</label>
+                        <input type="text" name="seconds" class="form-control"  value={{runs.0.seconds}}>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="cones" class="form-label">Cones:</label>
+                        <input type="number" id="cones" name="cones" class="form-control"  value={{runs.0.cones}}>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="wd" class="form-label">WD</label>
+                        <input type="number" name="wd" class="form-control"  value={{runs.0.wd}}>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+        </div>
+    </div>
+    <div class="col"></div>
+</div>
+{% endblock %}

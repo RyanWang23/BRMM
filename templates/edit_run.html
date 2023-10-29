@@ -1,38 +1,49 @@
 {% extends "base.html" %}
-
-
 {% block navbar %}
 <ul class="nav nav-pills ">
     <li class="nav-item"><a href="{{ url_for('junior_drivers') }}" class="nav-link">Junior drive list</a></li>
     <li class="nav-item"><a href="{{ url_for('driver_search') }}" class="nav-link">Driver Search</a></li>
     <li class="nav-item"><a href="{{ url_for('edit_run') }}" class="nav-link active">Edit run</a></li>
     <li class="nav-item"><a href="{{ url_for('add_driver') }}" class="nav-link">Add Driver</a></li>
+         <li class="nav-item"><a href="{{ url_for('logout') }}" class="nav-link">Logout</a></li>
 </ul>
 {% endblock %}
-
 {% block content %}
 <!-- driver_list is the variable passed in containing the list of drivers -->
 <!-- Add code to display a list of drivers -->
-
-<h2>Junior Driver List</h2>
+<h2>
+    Filter Runs
+</h2>
 <hr>
-<table  class="table table-striped">
-    <tr>
-        <th>Driver ID</th>
-        <th>Driver Name</th>
-        <th>Date of birth</th>
-        <th>Age</th>
-        <th>Care Giver</th>
-    </tr>
-    {% for driver in driver_list %}
-          <tr {% if driver.4 != '-' %}class="table-warning"{% endif %}>
-            <td>{{driver.0}}</td>
-            <td> <a href="/driver/{{driver.0}}">{{driver.1}}</a> </td>
-            <td>{{driver.2}}</td>
-            <td>{{driver.3}}</td>
-            <td>{{driver.4}}</td>
-        </tr>
-    {% endfor %}
-</table>
-
+<div class="row">
+    <div class="col"></div>
+    <div class="col">
+        <div class="container mt-3">
+            {% if error %}
+            <p class="text-danger"><strong>Error:</strong> {{ error }}
+                {% endif %}
+                <form method="POST" action="{{ url_for('edit_run') }}">
+                    <div class="mb-3 mt-3">
+                        <label for="course_id" class="form-label">Select the Course:</label>
+                        <select name="course_id" id="course_id" class="form-control">
+                            {% for course in courses %}
+                            <option value="{{ course.course_id }}">{{ course.name }} </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="driver_id" class="form-label">Select the Driver:</label>
+                        <select name="driver_id" id="driver_id" class="form-control">
+                            {% for driver in drivers %}
+                            <option value="{{ driver.driver_id }}">{{ driver.first_name }} {{ driver.surnamne }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Query</button>
+                </form>
+        </div>
+    </div>
+    <div class="col"></div>
+</div>
 {% endblock %}

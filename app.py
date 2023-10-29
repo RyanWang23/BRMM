@@ -148,7 +148,6 @@ def detail():
         cursor_description = [desc[0] for desc in connection.description]
         rows = connection.fetchall()
         drivers = [dict(zip(cursor_description, row)) for row in rows]
-        print(drivers)
         return render_template('detail_query.html', drivers=drivers)
 
 
@@ -255,7 +254,6 @@ def showgraph():
     for i in range(1,6):
         resultsList.append(data_lst[i]["course_time"])
         bestDriverList.append(data_lst[i]["driver_name"])
-    print(resultsList)
     return render_template("top5graph.html", name_list = bestDriverList, value_list = resultsList)
 
 
@@ -274,9 +272,16 @@ def login():
     
     return render_template("login.html")
 
+@app.route("/logout")
+def logout():
+    session.pop("username", None)
+    return redirect(url_for("home"))
+
 
 @app.route("/junior-drivers")
 def junior_drivers():
+    if session.get("username") is None:
+         return redirect(url_for('login'))
     connection = getCursor()
     connection.execute('''SELECT A.driver_id as driver_id, concat(A.first_name, ' ' ,  A.surname) driver_name,
 A.age as age, concat(B.first_name, ' ' ,  B.surname) care_name 
@@ -294,21 +299,88 @@ def driver_search():
 
 @app.route("/driver-results")
 def driver_results():
+    if session.get("username") is None:
+         return redirect(url_for('login'))
     search_query = request.args.get("search", "")
     connection = getCursor()
     connection.execute("select * from driver where first_name like '%{}%' or surname like '%{}%';".format(search_query, search_query))
     cursor_description = [desc[0] for desc in connection.description]
     rows = connection.fetchall()
     drivers = [dict(zip(cursor_description, row)) for row in rows]
-    print(drivers)
     return render_template("driver_results.html", drivers=drivers, search_query=search_query)
 
-@app.route("/edit-run")
+@app.route("/edit-run",  methods=['GET', 'POST'])
 def edit_run():
-    return render_template("edit_run.html")
+    if session.get("username") is None:
+        return redirect(url_for('login'))
+    if request.method == 'GET':
+        connection = getCursor()
+        connection.execute("select * from driver;")
+        cursor_description = [desc[0] for desc in connection.description]
+        rows = connection.fetchall()
+        drivers = [dict(zip(cursor_description, row)) for row in rows]
+        connection = getCursor()
+        connection.execute("select * from course;")
+        cursor_description = [desc[0] for desc in connection.description]
+        rows = connection.fetchall()
+        courses = [dict(zip(cursor_description, row)) for row in rows]
+        return render_template('edit_run.html', drivers=drivers, courses=courses)
+    else:
+        driver_id = request.form.get("driver_id")
+        course_id = request.form.get("course_id")
+        connection = getCursor()
+        connection.execute("select * from run where dr_id={} and crs_id='{}';".format(driver_id, course_id))
+        cursor_description = [desc[0] for desc in connection.description]
+        rows = connection.fetchall()
+        runs = [dict(zip(cursor_description, row)) for row in rows]
+        return render_template('edit_list.html', runs=runs)
+    
+
+@app.route("/run/<string:run_id>")
+def run_detail(run_id):
+    if session.get("username") is None:
+        return redirect(url_for('login'))
+    arr = run_id.split("_")
+    driver_id = arr[0]
+    crs_id = arr[1]
+    run_num = arr[2]
+    connection = getCursor()
+    connection.execute("select * from run where dr_id={} and crs_id='{}' and run_num={}".format(driver_id, crs_id, run_num))
+    cursor_description = [desc[0] for desc in connection.description]
+    rows = connection.fetchall()
+    runs = [dict(zip(cursor_description, row)) for row in rows]
+    return render_template("run_detail.html", runs = runs)    
+
+@app.route("/run/edit", methods=["POST", "GET"])
+def edit_run_detail():
+    if session.get("username") is None:
+        return redirect(url_for('login'))
+    if request.method=="POST":
+        driver_id = request.form.get("driver_id")
+        course_id = request.form.get("course_id")
+        run_num = request.form.get("run_num")
+        seconds = request.form.get("seconds")
+        cones = request.form.get("cones")
+        wd = request.form.get("wd")
+        connection = getCursor()
+        print(driver_id)
+        print(course_id)
+        print(run_num)
+        print(cones)
+        print(seconds)
+        print(wd)
+        connection.execute("update run set cones={}, wd={}, seconds={} where dr_id={} and crs_id='{}' and run_num={};".format(cones, wd, seconds, driver_id, course_id, run_num))
+        connection.execute("select * from run where dr_id={} and crs_id='{}' and run_num={};".format(driver_id, course_id, run_num))
+        cursor_description = [desc[0] for desc in connection.description]
+        rows = connection.fetchall()
+        runs = [dict(zip(cursor_description, row)) for row in rows]
+        return render_template('run_detail.html', runs=runs, message="Update successful")
+
 
 @app.route("/add-driver")
 def add_driver():
+    if session.get("username") is None:
+        return redirect(url_for('login'))
     return render_template("add_driver.html")
 
     

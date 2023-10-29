@@ -11,19 +11,32 @@
 {% block content %}
 <!-- driver_list is the variable passed in containing the list of drivers -->
 <!-- Add code to display a list of drivers -->
-<h2>Driver Search</h2>
+<h2>Run List</h2>
 <hr>
-<div class="row">
-    <div class="col"></div>
-    <div class="col">
-        <form action="/driver-results" method="GET">
-            <div class="mb-3 mt-3">
-                <label for="email" class="form-label">Search by first name or surname::</label>
-                <input type="text" class="form-control" id="search" name="search">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-    <div class="col"></div>
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Driver ID</th>
+            <th>Course ID</th>
+            <th>Run Number</th>
+            <th>Seconds</th>
+            <th>Cones</th>
+            <th>WD</th>
+            <th>Operation</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for run in runs %}
+        <tr>
+            <td>{{run.dr_id}}</td>
+            <td>{{run.crs_id}}</td>
+            <td>{{run.run_num}}</td>
+            <td>{{run.seconds}}</td>
+            <td>{{run.cones}}</td>
+            <td>{{run.wd}}</td>
+            <td><a href="/run/{{run.dr_id}}_{{run.crs_id}}_{{run.run_num}}">Edit</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
