@@ -363,12 +363,6 @@ def edit_run_detail():
         cones = request.form.get("cones")
         wd = request.form.get("wd")
         connection = getCursor()
-        print(driver_id)
-        print(course_id)
-        print(run_num)
-        print(cones)
-        print(seconds)
-        print(wd)
         connection.execute("update run set cones={}, wd={}, seconds={} where dr_id={} and crs_id='{}' and run_num={};".format(cones, wd, seconds, driver_id, course_id, run_num))
         connection.execute("select * from run where dr_id={} and crs_id='{}' and run_num={};".format(driver_id, course_id, run_num))
         cursor_description = [desc[0] for desc in connection.description]
@@ -377,11 +371,49 @@ def edit_run_detail():
         return render_template('run_detail.html', runs=runs, message="Update successful")
 
 
-@app.route("/add-driver")
+@app.route("/add-driver", methods=["GET", "POST"])
 def add_driver():
     if session.get("username") is None:
-        return redirect(url_for('login'))
-    return render_template("add_driver.html")
+            return redirect(url_for('login'))
+    connection = getCursor()
+    connection.execute("select * from car;")
+    cursor_description = [desc[0] for desc in connection.description]
+    rows = connection.fetchall()
+    cars = [dict(zip(cursor_description, row)) for row in rows]
+    connection.execute("select * from course;")
+    cursor_description = [desc[0] for desc in connection.description]
+    rows = connection.fetchall()
+    courses = [dict(zip(cursor_description, row)) for row in rows]
+    if request.method =="GET":
+        return render_template("add_driver.html", cars=cars, courses=courses, message=None)
+    else:
+        course_ids = request.form.getlist("course_id")
+        run_nums = request.form.getlist("run_num")
+        cones = request.form.getlist("cones")
+        wds = request.form.getlist("wd")
+        seconds = request.form.getlist("seconds")
+        firstname = request.form.get("first_name")
+        surname = request.form.get("surname")
+        date_of_birth = request.form.get("date_of_birth")
+        car = request.form.get("car")
+        connection.execute("insert driver(first_name, surname, date_of_birth, car) values ('{}', '{}', '{}',  {}); ".format(firstname, surname, date_of_birth, car))
+        driver_id = connection.lastrowid
+        print(driver_id)
+        for i in range(len(course_ids)):
+            course_id = course_ids[i]
+            run_num = run_nums[i]
+            second = seconds[i]
+            cone = cones[i]
+            wd = wds[i]
+            if cone == "":
+                cone = "null"
+            if wd == "":
+                wd = "0"
+            if second == "":
+                second = "null"
+            print("insert run(dr_id, crs_id, run_num, seconds, cones, wd) values({},'{}',  {}, {}, {}, {});".format(driver_id, course_id, run_num, second, cone, wd))
+            connection.execute("insert run(dr_id, crs_id, run_num, seconds, cones, wd) values({},'{}',  {}, {}, {}, {});".format(driver_id, course_id, run_num, second, cone, wd))
+        return render_template("add_driver.html", cars=cars, courses=courses, message="Update successful")
 
     
 
