@@ -26,6 +26,24 @@ Graph Visualization:
 
 The "showgraph" route is intended for displaying visual data, but the implementation is currently incomplete.
 
+- driver_search route:
+   This route renders the "driver_search.html" template, which displays a form for searching drivers.
+
+- driver_results route:
+- This route is triggered when the user submits the search form. It retrieves the search query from the request args, executes a database query to fetch matching drivers, and renders the "driver_results.html" template with the retrieved drivers and search query as parameters.
+ 
+- edit_run route:
+- This route handles the editing of a run. When accessed via GET method, it retrieves driver and course information from the database and renders the "edit_run.html" template with the retrieved data. When accessed via POST method, it updates the run information in the database based on the submitted form data and renders the "edit_list.html" template with the updated run information.
+
+- run_detail route:
+  This route displays the details of a specific run. It retrieves the run_id from the URL parameter, queries the database for the corresponding run information, and renders the "run_detail.html" template with the retrieved run information.
+
+- edit_run_detail route:
+  This route handles the editing of a specific run's details. When accessed via POST method, it updates the run information in the database based on the submitted form data and renders the "run_detail.html" template with the updated run information.
+
+- add_driver route:
+  This route handles the addition of a new driver. When accessed via GET method, it retrieves car and course information from the database and renders the "add_driver.html" template with the retrieved data. When accessed via POST method, it inserts the driver and run information into the database based on the submitted form data and renders the "add_driver.html" template with a success message.
+
 Technologies and Libraries Used:
 
 - Flask: The Python web framework used to create the application.
